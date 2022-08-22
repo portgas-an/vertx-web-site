@@ -11,6 +11,7 @@ import Piscina from "piscina"
 import pLimit from "p-limit"
 import prettyMilliseconds from "pretty-ms"
 import { MessageChannel } from "worker_threads"
+import fsSync from "fs";
 
 // make sure CLI cursor is restored on exit
 restoreCursor()
@@ -92,9 +93,17 @@ async function main() {
     })
     progressListener.stop()
 
+    let extractedPath = `extracted/${version}`
+    let translationPath = `translation/${version}`
+    let latest = version === latestReleaseVersion
+    if (latest) {
+      extractedPath = "translation"
+    } else if (fsSync.existsSync(translationPath)) {
+      extractedPath = translationPath
+    }
     // check if asciidoc for this version has already been compiled
     let asciidocCompiled = await isCompiled(version, artifactVersion,
-      downloadPath, compiledPath, latestBugfixVersion === undefined)
+      downloadPath, compiledPath, latestBugfixVersion === undefined, extractedPath)
 
     // delete compiled files and extracted apidocs if SHA was different
     if (!asciidocCompiled) {
