@@ -30,7 +30,6 @@ eventBus.send("orders", new MyPOJO());
 消息编解码器的编码输入和解码输出不一定使用同一个类型。
 例如您可以编写一个编解码器来发送 MyPOJO 类的对象，但是当消息发送给处理器后解码成 MyOtherPOJO 对象。
 
-Vert.x has built-in codecs for certain data types:
 Vert.x 内置某些特定类型的编解码器：
 
 - 基础类型（字符串，字节数组，字节，整型，长整型，双精度浮点型，布尔值，短整型，字符），或者
