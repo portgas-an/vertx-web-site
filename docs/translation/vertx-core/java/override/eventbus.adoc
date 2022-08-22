@@ -31,18 +31,19 @@ eventBus.send("orders", new MyPOJO());
 例如您可以编写一个编解码器来发送 MyPOJO 类的对象，但是当消息发送给处理器后解码成 MyOtherPOJO 对象。
 
 Vert.x has built-in codecs for certain data types:
+Vert.x 内置某些特定类型的编解码器：
 
-- basic types (string, byte array, byte, int, long, double, boolean, short, char), or
-- some Vert.x data types (buffers, JSON array, JSON objects), or
-- types implementing the `link:../../apidocs/io/vertx/core/shareddata/ClusterSerializable.html[ClusterSerializable]` interface, or
-- types implementing the `java.io.Serializable` interface.
+- 基础类型（字符串，字节数组，字节，整型，长整型，双精度浮点型，布尔值，短整型，字符），或者
+- 一些 Vert.x 的数据类型（buffers，JSON 数组，JSON 对象），或者
+- 实现 `link:../../apidocs/io/vertx/core/shareddata/ClusterSerializable.html[ClusterSerializable]` 接口的类型，或者
+- 实现 `java.io.Serializable` 接口的类型。
 
 [IMPORTANT]
 ====
-In clustered mode, `link:../../apidocs/io/vertx/core/shareddata/ClusterSerializable.html[ClusterSerializable]` and `java.io.Serializable` objects are rejected by default, for security reasons.
+在集群模式下，出于安全考虑，将会默认拒绝 `link:../../apidocs/io/vertx/core/shareddata/ClusterSerializable.html[ClusterSerializable]` 和 `java.io.Serializable` 对象。
 
-You can define which classes are allowed for encoding and decoding by providing functions which inspect the name of the class:
+您可以通过提供检查类名称的函数来定义允许编码和解码的类：
 
-- `link:../../apidocs/io/vertx/core/eventbus/EventBus.html#clusterSerializableChecker-java.util.function.Function-[EventBus.clusterSerializableChecker()]`, and
-- `link:../../apidocs/io/vertx/core/eventbus/EventBus.html#serializableChecker-java.util.function.Function-[EventBus.serializableChecker()]`.
+- `link:../../apidocs/io/vertx/core/eventbus/EventBus.html#clusterSerializableChecker-java.util.function.Function-[EventBus.clusterSerializableChecker()]`，以及
+- `link:../../apidocs/io/vertx/core/eventbus/EventBus.html#serializableChecker-java.util.function.Function-[EventBus.serializableChecker()]`。
 ====
