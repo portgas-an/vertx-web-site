@@ -181,20 +181,21 @@ pool.getConnection().compose(conn -> {
 
 为了连接可以重用，一旦当前连接上的操作已经完成，您需要关闭并释放连接到连接池里。
 
-== Command pipelining
+[[_command_pipelining]]
+== 命令管线
 
-In some use cases, command pipelining can improve database access performance.
+在某些场景中，命令管线化（Command Pipelining）可以提高数据库访问性能。
 
-You can configure the client to use pipelining
+您可以将客户端配置为使用管线
 
 [source,java]
 ----
 PgPool pool = PgPool.pool(vertx, connectOptions.setPipeliningLimit(16), poolOptions);
 ----
 
-The default pipelining limit is `256`.
+默认管线上限为 `256` 。
 
-You can set this value to `1` to disable pipelining.
+您可以将此值设置为 `1` 以禁用管线。
 
 [[_pool_versus_pooled_client]]
 == 连接池与池化的客户端
