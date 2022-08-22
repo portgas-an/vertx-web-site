@@ -16,7 +16,7 @@
 * 完整的数据类型支持
 * 支持存储过程
 * 支持 TLS/SSL
-* Query pipelining
+* 查询管线/流水线
 * MySQL 实用程序命令支持
 * 支持 MySQL 和 MariaDB
 * 丰富的字符排序（collation）和字符集支持
@@ -181,40 +181,42 @@ pool.getConnection().compose(conn -> {
 
 连接完成后，您必须关闭它以释放到连接池中，以便可以重复使用。
 
-== Command pipelining
+[[_command_pipelining]]
+== 命令管线/流水线
 
-In some use cases, command pipelining can improve database access performance.
+在某些场景中，将命令管线化（Command Pipelining）可以提高数据库访问性能。
 
-You can configure the client to use pipelining
+您可将客户端配置为使用管线
 
 [source,java]
 ----
 MySQLPool pool = MySQLPool.pool(vertx, connectOptions.setPipeliningLimit(16), poolOptions);
 ----
 
-The default pipelining limit is `1` which disables pipelining.
+默认管线上限为 `1` 也就是禁用管线。
 
-== Pool versus pooled client
+[[_pool_versus_pooled_client]]
+== 连接池以及池化的客户端
 
-The `link:../../apidocs/io/vertx/mysqlclient/MySQLPool.html[MySQLPool]` allows you to create a pool or a pooled client
+`link:../../apidocs/io/vertx/mysqlclient/MySQLPool.html[MySQLPool]` 允许您创建连接池或池化的客户端
 
 [source,java]
 ----
 connectOptions.setPipeliningLimit(64);
 SqlClient client = MySQLPool.client(vertx, connectOptions, poolOptions);
 
-// Pipelined
+// 管线/流水线化
 Future<RowSet<Row>> res1 = client.query(sql).execute();
 
-// Connection pool
+// 连接池
 MySQLPool pool = MySQLPool.pool(vertx, connectOptions, poolOptions);
 
-// Not pipelined
+// 非管线化
 Future<RowSet<Row>> res2 = pool.query(sql).execute();
 ----
 
-- 连接池操作并非流水线操作（pipelined），只有从连接池中获取的连接是流水线操作
-- 池化的客户端操作是流水线操作，您无法从池化的客户端获取连接
+- 连接池操作并非管线/流水线化操作（pipelined），只有从连接池中获取的连接是流水线操作
+- 池化的客户端操作是管线/流水线操作，您无法从池化的客户端获取连接
 
 [[_pool_sharing]]
 == 可共享的连接池
