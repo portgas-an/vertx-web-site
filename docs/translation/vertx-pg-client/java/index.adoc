@@ -182,7 +182,7 @@ pool.getConnection().compose(conn -> {
 为了连接可以重用，一旦当前连接上的操作已经完成，您需要关闭并释放连接到连接池里。
 
 [[_command_pipelining]]
-== 命令管线
+== 命令管线/流水线
 
 在某些场景中，命令管线化（Command Pipelining）可以提高数据库访问性能。
 
