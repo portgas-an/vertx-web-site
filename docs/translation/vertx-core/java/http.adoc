@@ -461,9 +461,9 @@ Vert.x 可以处理在客户端通过 _deflate_ 、 _gzip_ 或 _brotli_
 若要启用解压缩功能则您要在创建服务器时调用 `link:../../apidocs/io/vertx/core/http/HttpServerOptions.html#setDecompressionSupported-boolean-[setDecompressionSupported]`
 方法设置配置项。
 
-You need to have Brotli4j on the classpath to decompress Brotli:
+你需要确保在类路径上存在有 Brotli4j 以解压 Brotli：
 
-* Maven (in your `pom.xml`):
+* Maven（在您的`pom.xml`中）：
 
 [source,xml]
 ----
@@ -473,7 +473,7 @@ You need to have Brotli4j on the classpath to decompress Brotli:
  <version>${brotli4j.version}</version>
 </dependency>
 ----
-* Gradle (in your `build.gradle` file):
+* Gradle（在您的 `build.gradle` 文件中）：
 
 [source,groovy]
 ----
