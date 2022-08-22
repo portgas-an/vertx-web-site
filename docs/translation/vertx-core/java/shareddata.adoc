@@ -35,9 +35,9 @@ IMPORTANT: 分布式数据结构的行为取决于您使用的集群管理器。
 
 [NOTE]
 ====
-As a convenience, objects implementing `link:../../apidocs/io/vertx/core/shareddata/ClusterSerializable.html[ClusterSerializable]` or `java.io.Serializable` can be used as keys and values too.
-In this case, the key/value will be copied before putting it into the map by serializing/deserializing.
-Therefore, it is recommended to consider implementing `link:../../apidocs/io/vertx/core/shareddata/Shareable.html[Shareable]` instead for better performance.
+为方便起见，实现了 `link:../../apidocs/io/vertx/core/shareddata/ClusterSerializable.html[ClusterSerializable]` 或 `java.io.Serializable` 的对象也可以用作键和值。
+在这种情况下，键/值将在通过序列化/反序列化将其放入Map之前将会被复制。
+因此，建议考虑实现 `link:../../apidocs/io/vertx/core/shareddata/Shareable.html[Shareable]` 以获得更好的性能。
 ====
 
 以下是使用一个共享的 local map 的示例：
