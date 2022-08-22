@@ -65,7 +65,7 @@ module.exports = async ({ version, artifactVersion, isLatestBugfixVersion, progr
   await fs.mkdir(destVersionPath, { recursive: true })
 
   if (await isCompiled(version, artifactVersion, downloadPath, compiledPath,
-      isLatestBugfixVersion)) {
+      isLatestBugfixVersion, extractedPath)) {
     // documentation has already been compiled earlier
     progressPort.postMessage(100)
     return []
@@ -122,7 +122,7 @@ module.exports = async ({ version, artifactVersion, isLatestBugfixVersion, progr
   // write sha file to indicate that the documentation for this version
   // has been completely compiled
   await writeCompiledSha(version, artifactVersion, downloadPath, compiledPath,
-      isLatestBugfixVersion)
+      isLatestBugfixVersion, extractedPath)
 
   if (lastProgress < 100) {
     progressPort.postMessage(100)

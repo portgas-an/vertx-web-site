@@ -1,3 +1,4 @@
+const fsSync = require("fs")
 const fs = require("fs/promises")
 const path = require("path")
 const crypto = require("crypto")
@@ -5,6 +6,14 @@ const crypto = require("crypto")
 async function getSourceSha(version, downloadPath) {
   let sourceShaFile = path.join(downloadPath, `vertx-stack-docs-${version}-docs.zip.sha1`)
   let sourceSha = await fs.readFile(sourceShaFile, "utf-8")
+  return sourceSha
+}
+async function getTranslationSha(extractedPath) {
+  let sourceShaFile = path.join(extractedPath, ".cache.version")
+  let sourceSha
+  if (fsSync.existsSync(sourceShaFile)) {
+    sourceSha = await fs.readFile(sourceShaFile, "utf-8")
+  }
   return sourceSha
 }
 
@@ -15,8 +24,13 @@ function makeCompiledSha(sourceSha, isLatestBugfixVersion) {
 }
 
 async function isCompiled(version, artifactVersion, downloadPath, compiledPath,
-    isLatestBugfixVersion) {
-  let sourceSha = await getSourceSha(artifactVersion, downloadPath)
+    isLatestBugfixVersion, extractedPath) {
+  let sourceSha
+  if (extractedPath.startsWith("translation")) {
+    sourceSha = getTranslationSha(extractedPath)
+  } else {
+    sourceSha = await getSourceSha(artifactVersion, downloadPath)
+  }
   let compiledSha = makeCompiledSha(sourceSha, isLatestBugfixVersion)
 
   let destShaFile = path.join(compiledPath, version, `${version}.sha1`)
@@ -32,8 +46,13 @@ async function isCompiled(version, artifactVersion, downloadPath, compiledPath,
 }
 
 async function writeCompiledSha(version, artifactVersion, downloadPath,
-  compiledPath, isLatestBugfixVersion) {
-  let sourceSha = await getSourceSha(artifactVersion, downloadPath)
+  compiledPath, isLatestBugfixVersion, extractedPath) {
+  let sourceSha
+  if (extractedPath.startsWith("translation")) {
+    sourceSha = getTranslationSha(extractedPath)
+  } else {
+    sourceSha = await getSourceSha(artifactVersion, downloadPath)
+  }
   let compiledSha = makeCompiledSha(sourceSha, isLatestBugfixVersion)
   let destShaFile = path.join(compiledPath, version, `${version}.sha1`)
   await fs.writeFile(destShaFile, compiledSha)
