@@ -461,7 +461,7 @@ Vert.x 可以处理在客户端通过 _deflate_ 、 _gzip_ 或 _brotli_
 若要启用解压缩功能则您要在创建服务器时调用 `link:../../apidocs/io/vertx/core/http/HttpServerOptions.html#setDecompressionSupported-boolean-[setDecompressionSupported]`
 方法设置配置项。
 
-你需要确保在类路径上存在有 Brotli4j 以解压 Brotli：
+你需要确保在类路径classpath上存在有 Brotli4j 以解压 Brotli：
 
 * Maven（在您的`pom.xml`中）：
 
@@ -956,11 +956,12 @@ request.response()
 默认情况下 —— 如果通过 `link:../../apidocs/io/vertx/core/http/HttpServerOptions.html#setCompressionSupported-boolean-[setCompressionSupported]` 方法启用压缩，Vert.x 将使用 “6” 作为压缩级别，
 但是该参数可通过 `link:../../apidocs/io/vertx/core/http/HttpServerOptions.html#setCompressionLevel-int-[setCompressionLevel]` 方法来更改。
 
-=== HTTP compression algorithms
+[[_http_compression_algorithms]]
+=== HTTP 压缩算法
 
-Vert.x supports out of the box deflate and gzip.
+Vert.x 支持开箱即用的 deflate 和 gzip。
 
-Brotli and zstandard can also be used.
+也可以使用 Brotli 和 zstandard。
 
 [source,java]
 ----
@@ -971,9 +972,9 @@ new HttpServerOptions()
   .addCompressor(io.netty.handler.codec.compression.StandardCompressionOptions.zstd());
 ----
 
-NOTE: use {@code io.netty.handler.codec.compression.StandardCompressionOptions} static methods to create {@code io.netty.handler.codec.compression.CompressionOptions}
+NOTE: 使用 {@code io.netty.handler.codec.compression.StandardCompressionOptions} 静态方法创建 {@code io.netty.handler.codec.compression.CompressionOptions}
 
-Brotli and zstandard libraries need to be added to the classpath.
+Brotli 和 zstandard 库需要添加到类路径classpath中。
 
 * Maven (in your `pom.xml`):
 
@@ -990,7 +991,7 @@ Brotli and zstandard libraries need to be added to the classpath.
  <version>${zstd-jini.version}</version>
 </dependency>
 ----
-* Gradle (in your `build.gradle` file):
+* Gradle（在您的`build.gradle`文件中）：
 
 [source,groovy]
 ----
@@ -1000,7 +1001,7 @@ dependencies {
 }
 ----
 
-You can configure compressors according to your needs
+您可以根据需要配置压缩机
 
 [source,java]
 ----
