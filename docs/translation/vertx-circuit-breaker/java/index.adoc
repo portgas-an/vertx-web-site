@@ -249,17 +249,17 @@ breaker.<String>execute(
 [[_event_bus_notification]]
 == 事件总线通知
 
-Every time the circuit state changes, an event can be published on the event bus.
+每次断路器状态发生变化，都会在事件总线上发布一个事件。
 
-To enable this feature, set the `link:../../apidocs/io/vertx/circuitbreaker/CircuitBreakerOptions.html#setNotificationAddress-java.lang.String-[notification address]` to a value that is not `null`:
+要启用此功能，请将 `link:../../apidocs/io/vertx/circuitbreaker/CircuitBreakerOptions.html#setNotificationAddress-java.lang.String-[notification address]` 设置为非 `null` 值：
 
 [source,java]
 ----
 options.setNotificationAddress(CircuitBreakerOptions.DEFAULT_NOTIFICATION_ADDRESS);
 ----
 
-NOTE: When enabled, notifications are, by default, delivered only to local consumers.
-If the notification must be sent to all consumers in a cluster, you can change this behavior with `link:../../apidocs/io/vertx/circuitbreaker/CircuitBreakerOptions.html#setNotificationLocalOnly-boolean-[setNotificationLocalOnly]`.
+NOTE: 启用后，默认情况下，通知仅传递给本地消费者。
+如果必须将通知发送给集群中的所有消费者，您可通过设置 `link:../../apidocs/io/vertx/circuitbreaker/CircuitBreakerOptions.html#setNotificationLocalOnly-boolean-[setNotificationLocalOnly]` 以更改此行为。
 
 每个总线通知都会包含一个 Json Object 对象，该对象包括以下字段：
 
