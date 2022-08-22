@@ -95,7 +95,7 @@ async function main() {
 
     let extractedPath = `extracted/${version}`
     let translationPath = `translation/${version}`
-    let latest = version === latestReleaseVersion
+    let latest = version === latestRelease.version
     if (latest) {
       extractedPath = "translation"
     } else if (fsSync.existsSync(translationPath)) {
