@@ -46,7 +46,8 @@ Schemas可以两种形式存在：
 * 基于 JSON 表达形式的 JSON 对象
 * 基于 `true/false` 布尔值
 
-`link:../../apidocs/io/vertx/json/schema/JsonSchema.html[JsonSchema]` 接口同时兼容这两种类型，无需频繁检查类型。
+`link:../../apidocs/io/vertx/json/schema/JsonSchema.html[JsonSchema]` 接口同时兼容这两种类型，
+无需频繁检查类型。
 
 [[_schemarepository]]
 === Schema 存储仓库/Repository
@@ -55,7 +56,8 @@ Schemas可以两种形式存在：
 它将执行解除引用模式以加快验证速度。
 该存储仓库是一个简单的密钥存储，这表示着它不允许出现重复的 ID。
 
-存储仓库随后创建 `link:../../apidocs/io/vertx/json/schema/Validator.html[Validator]` 实例并获取存储仓库中所有的从属（sub）schemas。
+存储仓库随后创建 `link:../../apidocs/io/vertx/json/schema/Validator.html[Validator]`
+实例并获取存储仓库中所有的从属（sub）schemas。
 
 [[_validator]]
 === 验证器
@@ -78,7 +80,8 @@ SchemaRepository repository =
   SchemaRepository.create(new JsonSchemaOptions().setBaseUri("https://vertx.io"));
 ----
 
-您可以将 `JsonSchema` 实例用于不同的 `Validator 验证器`，且可直接使用 `JsonParser` 解析不同的 `JsonSchema`。
+您可以将 `JsonSchema` 实例用于不同的 `Validator 验证器`，
+且可直接使用 `JsonParser` 解析不同的 `JsonSchema`。
 
 现在你可以解析schema了：
 
