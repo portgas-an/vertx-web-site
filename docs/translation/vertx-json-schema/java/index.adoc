@@ -41,10 +41,10 @@ dependencies {
 
 === JsonSchema
 
-Schemas可以两种方式生成：
+Schemas可以两种形式存在：
 
-* 基于JSON对象
-* 基于 `true/false` 的布尔值
+* 基于 JSON 表达形式的 JSON 对象
+* 基于 `true/false` 布尔值
 
 `link:../../apidocs/io/vertx/json/schema/JsonSchema.html[JsonSchema]` 接口同时兼容这两种类型，无需频繁检查类型。
 
@@ -78,7 +78,7 @@ SchemaRepository repository =
   SchemaRepository.create(new JsonSchemaOptions().setBaseUri("https://vertx.io"));
 ----
 
-您可以将 `JsonSchema` 实例用于不同的 `Validator 校验器`，且可直接使用 `JsonParser` 解析不同的 `JsonSchema`。
+您可以将 `JsonSchema` 实例用于不同的 `Validator 验证器`，且可直接使用 `JsonParser` 解析不同的 `JsonSchema`。
 
 现在你可以解析schema了：
 
@@ -213,7 +213,7 @@ objectSchema()
 [[_using_the_schema]]
 === 使用schema
 
-After you defined the schema, you can call `link:../../apidocs/io/vertx/json/schema/common/dsl/SchemaBuilder.html#toJson--[toJson]` to return the JSON notation of the schema:
+定义完schema后，您可调用 `link:../../apidocs/io/vertx/json/schema/common/dsl/SchemaBuilder.html#toJson--[toJson]` 以返回schema的 JSON 表达：
 
 [source,java]
 ----
