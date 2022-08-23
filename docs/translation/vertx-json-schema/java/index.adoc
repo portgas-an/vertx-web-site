@@ -119,11 +119,12 @@ if (result.getValid()) {
 }
 ----
 
-== Custom formats
+[[_custom_formats]]
+== 自定义格式
 
-Adding custom formats is not allowed. This may sound like a limitation but it arises from the validation spec.
-Validators are expected to assume unknown formats as valid input, delegating to the application business code the role
-of validator for custom values.
+不允许添加自定义格式。这听起来像是一个限制，但它源自验证规范。
+验证器假设未知格式为有效输入，
+并将该验证委托给应用程序业务代码中的自定义验证器。
 
 [[_building_your_schemas_from_code]]
 == 用代码来构建schema
