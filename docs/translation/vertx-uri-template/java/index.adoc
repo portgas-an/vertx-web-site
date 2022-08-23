@@ -90,10 +90,8 @@ query.put("lastName", "Cooper");
 variables.set("query", query);
 ----
 
-As seen earlier, variables are referenced within a template by their name surrounded with curly braces, e.g `{host}` references the `host` variable, this
-expansion is known as _simple string expansion_.
 如上所述，变量通过在模板中用大括号括起来的名称引用，例如 `{host}` 引用 `host` 变量，
-该扩展称为_简单字符串扩展_。
+该扩展称为 _简单字符串扩展_ 。
 
 NOTE: 还有其他的<<expansion_styles,扩展样式>>，它们与简单的字符串扩展的区别在于它们的格式和编码。
 
