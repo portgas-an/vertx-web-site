@@ -1004,7 +1004,7 @@ public class TimeoutTestSuite {
 
 NOTE: 使用 `io.vertx.ext.unit.junit.Timeout`, 而不是 `org.junit.rules.Timeout`.
 
-这个方法级别的超时会覆盖class级别的超时:
+这个方法级别的超时会覆盖 class 级别的超时：
 
 .结合class级别规则合方法级别的超时
 [source,java]
