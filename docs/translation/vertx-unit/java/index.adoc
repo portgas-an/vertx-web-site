@@ -1006,7 +1006,7 @@ NOTE: 使用 `io.vertx.ext.unit.junit.Timeout`, 而不是 `org.junit.rules.Timeo
 
 这个方法级别的超时会覆盖 class 级别的超时：
 
-.结合class级别规则合方法级别的超时
+.结合 class 级别规则 以及 方法级别的超时
 [source,java]
 ----
 @RunWith(VertxUnitRunner.class)
