@@ -27,7 +27,7 @@ async function isCompiled(version, artifactVersion, downloadPath, compiledPath,
     isLatestBugfixVersion, extractedPath) {
   let sourceSha
   if (extractedPath.startsWith("translation")) {
-    sourceSha = getTranslationSha(extractedPath)
+    sourceSha = await getTranslationSha(extractedPath)
   } else {
     sourceSha = await getSourceSha(artifactVersion, downloadPath)
   }
@@ -49,7 +49,7 @@ async function writeCompiledSha(version, artifactVersion, downloadPath,
   compiledPath, isLatestBugfixVersion, extractedPath) {
   let sourceSha
   if (extractedPath.startsWith("translation")) {
-    sourceSha = getTranslationSha(extractedPath)
+    sourceSha = await getTranslationSha(extractedPath)
   } else {
     sourceSha = await getSourceSha(artifactVersion, downloadPath)
   }
