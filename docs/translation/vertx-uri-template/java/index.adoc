@@ -7,11 +7,12 @@ https://datatracker.ietf.org/doc/html/rfc6570[URI 模版意见稿] 的一个实�
 
 WARNING: 这个模块处于 Tech Preview 阶段，这意味着在不同版本之间API可能会不太一样。
 
-== Using the URI Template
+[[_using_the_uri_template]]
+== 使用 URI 模版
 
-To use this component, add the following dependency to the dependencies section of your build descriptor:
+要使用此组件，请将以下依赖项添加到构建描述符的依赖项部分：
 
-* Maven (in your `pom.xml`):
+* Maven（在您的`pom.xml`中）：
 
 [source,xml,subs="+attributes"]
 ----
@@ -22,32 +23,34 @@ To use this component, add the following dependency to the dependencies section 
 </dependency>
 ----
 
-* Gradle (in your `build.gradle` file):
+* Gradle（在您的`build.gradle`文件中）：
 
 [source,groovy,subs="+attributes"]
 ----
 compile io.vertx:vertx-uri-template:4.3.0
 ----
 
-== Templates
+[[_templates]]
+== 模版
 
-You can create a template very easily
+您可以轻松创建一个模版
 
 [source,java]
 ----
 UriTemplate template = UriTemplate.of("http://{host}/product/{id}{?sort}");
 ----
 
-Only a valid template can be created, any invalid template is rejected with an exception at creation time:
+只能创建有效的模板，任何无效的模板都会在创建时被拒绝并出现异常：
 
 [source,java]
 ----
 UriTemplate template = UriTemplate.of("{!invalid}}"); // Will throw an exception
 ----
 
-== Template expansion
+[[_template_expansion]]
+== 模版扩展
 
-You can call `link:../../apidocs/io/vertx/uritemplate/UriTemplate.html#expandToString-io.vertx.uritemplate.Variables-[expandToString]` with a list of variables to produce a valid URI string
+您可以使用带有变量列表的 `link:../../apidocs/io/vertx/uritemplate/UriTemplate.html#expandToString-io.vertx.uritemplate.Variables-[expandToString]` 以生成有效的 URI 字符串
 
 [source,java]
 ----
@@ -60,9 +63,9 @@ String uri = template.expandToString(Variables
 );
 ----
 
-`link:../../apidocs/io/vertx/uritemplate/Variables.html[Variables]` holds the variables used by template expansion
+`link:../../apidocs/io/vertx/uritemplate/Variables.html[Variables]` 用于保存模板扩展时所使用的变量
 
-* you can set a single valued variable
+* 您可以设置一个单值变量
 
 [source,java]
 ----
@@ -70,14 +73,14 @@ variables.set("server", "localhost");
 variables.set("port", "8080");
 ----
 
-* you can set a list valued variable
+* 您可以设置一个列表值变量
 
 [source,java]
 ----
 variables.set("ids", Arrays.asList("123", "456"));
 ----
 
-* you can set a map valued variable
+* 您可以设置一个映射值变量
 
 [source,java]
 ----
@@ -89,10 +92,12 @@ variables.set("query", query);
 
 As seen earlier, variables are referenced within a template by their name surrounded with curly braces, e.g `{host}` references the `host` variable, this
 expansion is known as _simple string expansion_.
+如上所述，变量通过在模板中用大括号括起来的名称引用，例如 `{host}` 引用 `host` 变量，
+该扩展称为_简单字符串扩展_。
 
-NOTE: There are other <<expansion_styles,expansion styles>>, they differ from simple string expansion by their formatting and encoding.
+NOTE: 还有其他的<<expansion_styles,扩展样式>>，它们与简单的字符串扩展的区别在于它们的格式和编码。
 
-Lists are expanded to a comma separated value
+列表扩展为逗号分隔值
 
 [source,java]
 ----
@@ -101,8 +106,8 @@ Variables variables = Variables.variables().set("sort", Arrays.asList("price", "
 assertEquals("http://server.com/products?sort=price,name", template.expandToString(variables));
 ----
 
-Likewise, map values are expanded to comma separated values, e.g `{ "firstName": "Dale", "lastName": "Cooper" }` expands to `"firstName,Dale,lastName,Cooper"`
-, unless they are _exploded_ with an _asterisk_ modifier
+同样，映射值扩展为逗号分隔值，例如 `{ "firstName": "Dale", "lastName": "Cooper" }` 扩展为 `"firstName,Dale,lastName,Cooper"`
+, 除非它们是带有 _星号_ 修饰符的 _展开值_
 
 [source,java]
 ----
@@ -114,16 +119,17 @@ Variables variables = Variables.variables().set("details", details)
 assertEquals("http://server.com/?firstName=Dale,lastName=Cooper", template.expandToString(variables));
 ----
 
-== Template encoding
+[[_template_encoding]]
+== 模板编码
 
-Literal characters outside the <<reserved_set,reserved>> set and <<unreserved_set,unreserved>> set are https://en.wikipedia.org/wiki/Percent-encoding[percent-encoded]:
+<<reserved_set,保留>>集以及<<unreserved_set,非保留>>集以外的文字字符则采用 https://en.wikipedia.org/wiki/Percent-encoding[百分比编码]：
 
 [source,java]
 ----
 assertEquals("http://server.com/currency/%E2%82%AC", UriTemplate.of("http://server.com/currency/€").expandToString(variables));
 ----
 
-Simple string expansion encodes any character outside the <<unreserved_set,unreserved>> set to its percent-encoded equivalent:
+简单的字符串扩展则将 <<unreserved_set,非保留>> 集合之外的任何字符编码为其百分比编码等效项：
 
 [source,java]
 ----
@@ -133,16 +139,17 @@ assertEquals("http://server.com/currency/%E2%82%AC", UriTemplate.of("http://serv
 ----
 
 [[expansion_styles]]
-== Expansion styles
+== 扩展样式
 
-Beyond simple string expansion, you can use other expansion styles, expansion follows the syntax `'{' operator? varname '}'`.
+除了简单的字符串扩展，你还可以使用其他扩展方式，扩展遵循语法 `'{' 运算符？变量名'}'`。
 
-=== Simple string expansion
+[[_simple_string_expansion]]
+=== 简单的字符串扩展
 
-The default expansion style when no operator is given.
+未给出运算符时的默认扩展样式。
 
-* Syntax: `{varname}`
-* Allowed characters: <<unreserved_set,unreserved>> set
+* 语法：`{变量名}`
+* 允许的字符：<<unreserved_set,非保留>> 集
 
 [stripes=even,frame=none,grid=cols,cols="3,1,3"]
 |===
@@ -159,12 +166,13 @@ The default expansion style when no operator is given.
 |{ "map": { "firstName": "Dale", "lastName": "Cooper" } } | {map*} | firstName=Dale,lastName=Cooper
 |===
 
-=== Path segment expansion
+[[_path_segment_expansion]]
+=== 路径段扩展
 
-Path segment expansion is useful for creating hierarchical URI path.
+路径段扩展对于创建分层 URI 路径很有用。
 
-* Syntax: `{/varname}`
-* Allowed characters: <<unreserved_set,unreserved>> set
+* 语法：`{/变量名}`
+* 允许的字符：<<unreserved_set,非保留>> 集
 
 [stripes=even,frame=none,grid=cols,cols="3,1,3"]
 |===
@@ -181,12 +189,13 @@ Path segment expansion is useful for creating hierarchical URI path.
 |{ "map": { "firstName": "Dale", "lastName": "Cooper" } } | {/map*} | /firstName=Dale/lastName=Cooper
 |===
 
-=== Form-style query expansion
+[[_form_style_query_expansion]]
+=== 表单式查询扩展
 
-Form-style query expansion is useful for creating query strings.
+表单式查询扩展对于创建查询字符串很有用。
 
-* Syntax: `{?varname}`
-* Allowed characters: <<unreserved_set,unreserved>> set
+* 语法： `{?变量名}`
+* 允许的字符：<<unreserved_set,非保留>> 集
 
 [stripes=even,frame=none,grid=cols,cols="3,1,3"]
 |===
