@@ -59,14 +59,14 @@ PgConnectOptions connectOptions = new PgConnectOptions()
   .setUser("user")
   .setPassword("secret");
 
-// Pool options
+// 连接池参数
 PoolOptions poolOptions = new PoolOptions()
   .setMaxSize(5);
 
-// Create the client pool
+// 创建客户端连接池
 SqlClient client = PgPool.client(connectOptions, poolOptions);
 
-// A simple query
+// 一个简单查询
 client
   .query("SELECT * FROM users WHERE id='julien'")
   .execute(ar -> {
@@ -96,11 +96,11 @@ PgConnectOptions connectOptions = new PgConnectOptions()
   .setUser("user")
   .setPassword("secret");
 
-// Pool options
+// 连接池参数
 PoolOptions poolOptions = new PoolOptions()
   .setMaxSize(5);
 
-// Create the pooled client
+// 创建一个池化的客户端
 SqlClient client = PgPool.client(connectOptions, poolOptions);
 ----
 
@@ -118,11 +118,11 @@ PgConnectOptions connectOptions = new PgConnectOptions()
   .setUser("user")
   .setPassword("secret");
 
-// Pool options
+// 连接池参数
 PoolOptions poolOptions = new PoolOptions()
   .setMaxSize(5);
 
-// Create the pooled client
+// 创建一个池化的客户端
 SqlClient client = PgPool.client(vertx, connectOptions, poolOptions);
 ----
 
@@ -147,18 +147,18 @@ PgConnectOptions connectOptions = new PgConnectOptions()
   .setUser("user")
   .setPassword("secret");
 
-// Pool options
+// 连接池参数
 PoolOptions poolOptions = new PoolOptions()
   .setMaxSize(5);
 
-// Create the pooled client
+// 创建一个池化的客户端
 PgPool pool = PgPool.pool(vertx, connectOptions, poolOptions);
 
-// Get a connection from the pool
+// 从连接池中获取一个连接
 pool.getConnection().compose(conn -> {
   System.out.println("Got a connection from the pool");
 
-  // All operations execute on the same connection
+  // 所有操作都在一个连接中执行
   return conn
     .query("SELECT * FROM users WHERE id='julien'")
     .execute()
@@ -237,14 +237,14 @@ PgConnectOptions connectOptions = new PgConnectOptions()
   .setPort(5432)
   .setDatabase("the-db");
 
-// Pool options
+// 连接池参数
 PoolOptions poolOptions = new PoolOptions()
   .setMaxSize(5);
 
-// Create the pooled client
+// 创建一个池化的客户端
 PgPool client = PgPool.pool(connectOptions, poolOptions);
 
-// Create the pooled client with a vertx instance
+// 创建一个池化的客户端 with a vertx instance
 // Make sure the vertx instance has enabled native transports
 PgPool client2 = PgPool.pool(vertx, connectOptions, poolOptions);
 ----
@@ -282,14 +282,14 @@ PgConnectOptions connectOptions = new PgConnectOptions()
   .setUser("user")
   .setPassword("secret");
 
-// Pool Options
+// 连接池参数
 PoolOptions poolOptions = new PoolOptions().setMaxSize(5);
 
-// Create the pool from the data object
+// 从数据对象中创建连接池
 PgPool pool = PgPool.pool(vertx, connectOptions, poolOptions);
 
 pool.getConnection(ar -> {
-  // Handling your connection
+  // 处理您的连接
 });
 ----
 
@@ -301,7 +301,7 @@ pool.getConnection(ar -> {
 ----
 PgConnectOptions connectOptions = new PgConnectOptions();
 
-// Set the default schema
+// 设置默认schema
 Map<String, String> props = new HashMap<>();
 props.put("search_path", "myschema");
 connectOptions.setProperties(props);
@@ -318,12 +318,12 @@ connectOptions.setProperties(props);
 ----
 String connectionUri = "postgresql://dbuser:secretpassword@database.server.com:3211/mydb";
 
-// Create the pool from the connection URI
+// 从连接 URI 创建连接池
 PgPool pool = PgPool.pool(connectionUri);
 
-// Create the connection from the connection URI
+// 从连接 URI 创建连接
 PgConnection.connect(vertx, connectionUri, res -> {
-  // Handling your connection
+  // 处理您的连接
 });
 ----
 
@@ -373,9 +373,9 @@ $ PGUSER=user \
 ----
 PgPool pool = PgPool.pool();
 
-// Create the connection from the environment variables
+// 从环境变量创建连接
 PgConnection.connect(vertx, res -> {
-  // Handling your connection
+  // 处理您的连接
 });
 ----
 
@@ -521,10 +521,10 @@ pool
   RowSet<Row> rowSet = ar.result();
   Row row = rowSet.iterator().next();
 
-  // Stored as java.lang.Long
+  // 存为 java.lang.Long
   Object value = row.getValue(0);
 
-  // Convert to java.lang.Integer
+  // 转成 java.lang.Integer
   Integer intValue = row.getInteger(0);
 });
 ----
@@ -539,10 +539,10 @@ pool
   RowSet<Row> rowSet = ar.result();
   Row row = rowSet.iterator().next();
 
-  // Stored as java.lang.Long
+  // 存为 java.lang.Long
   Object value = row.getValue(0);
 
-  // Convert to java.lang.Integer
+  // 转为 java.lang.Integer
   Integer intValue = row.getInteger(0);
 });
 ----
@@ -568,15 +568,15 @@ Tuple tuple = Tuple.of(
   new JsonObject().put("foo", "bar"),
   3);
 
-// Retrieving json
-Object value = tuple.getValue(0); // Expect JSON_NULL
+// 获取 json
+Object value = tuple.getValue(0); // 期望 JSON_NULL
 
 //
-value = tuple.get(JsonObject.class, 1); // Expect JSON object
+value = tuple.get(JsonObject.class, 1); // 期望 JSON 对象
 
 //
-value = tuple.get(Integer.class, 2); // Expect 3
-value = tuple.getInteger(2); // Expect 3
+value = tuple.get(Integer.class, 2); // 期望 3
+value = tuple.getInteger(2); // 期望 3
 ----
 
 [[_handling_numeric]]
@@ -588,7 +588,7 @@ java的 `link:../../apidocs/io/vertx/sqlclient/data/Numeric.html[Numeric]` 用�
 ----
 Numeric numeric = row.get(Numeric.class, 0);
 if (numeric.isNaN()) {
-  // Handle NaN
+  // 处理 NaN
 } else {
   BigDecimal value = numeric.bigDecimalValue();
 }
@@ -603,10 +603,10 @@ if (numeric.isNaN()) {
 ----
 Tuple tuple = Tuple.of(new String[]{ "a", "tuple", "with", "arrays" });
 
-// Add a string array to the tuple
+// 将字符串数组添加到元组
 tuple.addArrayOfString(new String[]{"another", "array"});
 
-// Get the first array of string
+// 获取第一个字符串数组
 String[] array = tuple.getArrayOfStrings(0);
 ----
 
@@ -771,14 +771,14 @@ Collector<Row, ?, Map<Long, String>> collector = Collectors.toMap(
   row -> row.getLong("id"),
   row -> row.getString("last_name"));
 
-// Run the query with the collector
+// 使用收集器运行查询
 client.query("SELECT * FROM users")
   .collecting(collector)
   .execute(ar -> {
   if (ar.succeeded()) {
     SqlResult<Map<Long, String>> result = ar.result();
 
-    // Get the map created by the collector
+    // 获取收集器创建的映射
     Map<Long, String> map = result.value();
     System.out.println("Got " + map);
   } else {
@@ -800,12 +800,12 @@ Collector<Row, ?, String> collector = Collectors.mapping(
   Collectors.joining(",", "(", ")")
 );
 
-// Run the query with the collector
+// 使用收集器运行查询
 client.query("SELECT * FROM users").collecting(collector).execute(ar -> {
     if (ar.succeeded()) {
       SqlResult<String> result = ar.result();
 
-      // Get the string created by the collector
+      // 获取收集器创建的字符串
       String list = result.value();
       System.out.println("Got " + list);
     } else {
@@ -880,7 +880,7 @@ PgSubscriber subscriber = PgSubscriber.subscriber(vertx, new PgConnectOptions()
 
 subscriber.connect(ar -> {
     if (ar.succeeded()) {
-      // Complex channel name - name in PostgreSQL requires a quoted ID
+      // 复杂通道名称 - PostgreSQL 中的名称需要带引号的 ID
       subscriber.channel("Complex.Channel.Name").handler(payload -> {
         System.out.println("Received " + payload);
       });
@@ -892,12 +892,12 @@ subscriber.connect(ar -> {
           });
       });
 
-      // PostgreSQL simple ID's are forced lower-case
+      // PostgreSQL 简单 ID 强制小写
       subscriber.channel("simple_channel").handler(payload -> {
           System.out.println("Received " + payload);
       });
       subscriber.channel("simple_channel").subscribeHandler(subscribed -> {
-        // The following simple channel identifier is forced to lower case
+        // 以下简单频道标识符被强制小写
         subscriber.actualConnection()
           .query("NOTIFY Simple_CHANNEL, 'msg'")
           .execute(notified -> {
@@ -905,8 +905,8 @@ subscriber.connect(ar -> {
           });
       });
 
-      // The following channel name is longer than the current
-      // (NAMEDATALEN = 64) - 1 == 63 character limit and will be truncated
+      // 以下频道名称比当前频道名称长
+      // (NAMEDATALEN = 64) - 1 == 63 个字符限制，将被截断
       subscriber.channel("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbb")
         .handler(payload -> {
         System.out.println("Received " + payload);
@@ -931,7 +931,7 @@ PgSubscriber subscriber = PgSubscriber.subscriber(vertx, new PgConnectOptions()
   .setPassword("secret")
 );
 
-// Reconnect at most 10 times after 100 ms each
+// 每次 100 毫秒后最多重新连接 10 次
 subscriber.reconnectPolicy(retries -> {
   if (retries < 10) {
     return 100L;
@@ -957,7 +957,7 @@ connection
     // imagine this is a long query and is still running
     System.out.println("Query success");
   } else {
-    // the server will abort the current query after cancelling request
+    // 服务器将在取消请求后中止当前查询
     System.out.println("Failed to query due to " + ar.cause().getMessage());
   }
 });
@@ -995,7 +995,7 @@ PgConnectOptions options = new PgConnectOptions()
 
 PgConnection.connect(vertx, options, res -> {
   if (res.succeeded()) {
-    // Connected with SSL
+    // 带 SSL 的连接
   } else {
     System.out.println("Could not connect " + res.cause());
   }
