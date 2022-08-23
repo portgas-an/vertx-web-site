@@ -15,7 +15,7 @@ insert(docs, "vertx-grpc",
     href: "/vertx-grpc/java/",
     repository: "https://github.com/eclipse-vertx/vertx-grpc",
     edit: "https://github.com/eclipse-vertx/vertx-grpc/tree/master/vertx-grpc-common/src/main/asciidoc",
-    label: "Technical Preview"
+    label: "技术预览"
   }
  )
 
@@ -41,7 +41,7 @@ insert(docs, "vertx-uri-template",
     href: "/vertx-uri-template/java/",
     repository: "https://github.com/eclipse-vertx/vertx-uri-template/tree/main/",
     edit: "https://github.com/eclipse-vertx/vertx-uri-template/tree/main/src/main/asciidoc",
-    label: "Technical Preview"
+    label: "技术预览"
   }
  )
 
